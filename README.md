@@ -1,8 +1,9 @@
 🏥 Gestor de Citas Médicas
 Sistema web de gestión de citas médicas con interfaces diferenciadas para pacientes y doctores.
 🚀 Ver Demo en Vivo
+https://nff0928.github.io/Gestor-de-Citas/
 📋 ¿Qué es esto?
-Una aplicación web completa que simula un sistema real de gestión de citas médicas. Permite:
+Una aplicación web completa que simula un sistema real de gestión de citas médicas.
 👤 Como Paciente:
 
 Solicitar citas con diferentes especialistas
@@ -42,7 +43,7 @@ Notificaciones - Feedback visual en tiempo real
 
 🚀 Cómo Usar
 
-Visita el demo
+Visita el demo: https://nff0928.github.io/Gestor-de-Citas/
 Selecciona tu rol: Paciente o Doctor
 Explora las funcionalidades disponibles
 Interactúa con los datos de ejemplo incluidos
