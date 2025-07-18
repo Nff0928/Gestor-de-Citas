@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <title>MediCitas Pro | Sistema de Gestión de Citas</title>
+
+</head>
+<body>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="nav-container">
+                <div class="logo">🏥 MediCitas Pro</div>
+                <div class="nav-links">
+                    <button class="nav-btn secondary" onclick="showPage('welcome')">Inicio</button>
+                    <button class="nav-btn secondary" onclick="showPage('patient')" id="patientBtn" style="display: none;">Vista Paciente</button>
+                    <button class="nav-btn secondary" onclick="showPage('doctor')" id="doctorBtn" style="display: none;">Vista Doctor</button>
+                    <div class="role-indicator" id="roleIndicator" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Page -->
+        <div id="welcome" class="page active">
+            <div class="main-content">
+                <div class="welcome-section">
+                    <h1 class="welcome-title">Sistema de Gestión de Citas Médicas</h1>
+                    <p class="welcome-subtitle">Plataforma completa para la gestión de citas médicas con interfaces especializadas para pacientes y doctores</p>
+                    
+                    <div class="role-cards">
+                        <div class="role-card patient" onclick="setRole('patient')">
+                            <div class="role-icon">👤</div>
+                            <div class="role-title">Soy Paciente</div>
+                            <div class="role-description">Gestiona tus citas médicas de forma fácil y rápida</div>
+                            <div class="role-features">
+                                <ul>
+                                    <li>Agendar nuevas citas</li>
+                                    <li>Ver historial médico</li>
+                                    <li>Gestionar citas pendientes</li>
+                                    <li>Recibir recordatorios</li>
+                                    <li>Buscar especialistas</li>
+                                </ul>
+                            </div>
+                            <button class="btn">Acceder como Paciente</button>
+                        </div>
+                        
+                        <div class="role-card doctor" onclick="setRole('doctor')">
+                            <div class="role-icon">👨‍⚕️</div>
+                            <div class="role-title">Soy Doctor</div>
+                            <div class="role-description">Administra tu consulta y gestiona pacientes</div>
+                            <div class="role-features">
+                                <ul>
+                                    <li>Gestionar agenda médica</li>
+                                    <li>Confirmar/rechazar citas</li>
+                                    <li>Ver detalles de pacientes</li>
+                                    <li>Administrar horarios</li>
+                                    <li>Reportes y estadísticas</li>
+                                </ul>
+                            </div>
+                            <button class="btn">Acceder como Doctor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patient Page -->
+        <div id="patient" class="page">
+            <div class="main-content">
+                <h2 style="margin-bottom: 30px; color: #2c3e50;">📋 Panel de Paciente</h2>
+                
+                <div class="dashboard">
+                    <div class="stats-section">
+                        <h3 style="margin-bottom: 20px; color: #2c3e50;">Mis Estadísticas</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="patientTotalCitas">0</div>
+                                <div class="stat-label">Total Citas</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="patientCitasHoy">0</div>
+                                <div class="stat-label">Hoy</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="patientCitasPendientes">0</div>
+                                <div class="stat-label">Pendientes</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="patientCitasCompletas">0</div>
+                                <div class="stat-label">Completadas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 style="margin-bottom: 20px; color: #2c3e50;">➕ Solicitar Nueva Cita</h3>
+                        <form id="patientForm">
+                            <div class="form-group">
+                                <label for="patientDoctor">Doctor/Especialista</label>
+                                <select id="patientDoctor" required>
+                                    <option value="">Seleccionar doctor</option>
+                                    <option value="Dr. García - Cardiología">Dr. García - Cardiología</option>
+                                    <option value="Dra. López - Dermatología">Dra. López - Dermatología</option>
+                                    <option value="Dr. Martínez - Medicina General">Dr. Martínez - Medicina General</option>
+                                    <option value="Dra. Rodríguez - Ginecología">Dra. Rodríguez - Ginecología</option>
+                                    <option value="Dr. Sánchez - Pediatría">Dr. Sánchez - Pediatría</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="patientDate">Fecha Preferida</label>
+                                <input type="date" id="patientDate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="patientTime">Hora Preferida</label>
+                                <select id="patientTime" required>
+                                    <option value="">Seleccionar hora</option>
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="patientReason">Motivo de la Consulta</label>
+                                <textarea id="patientReason" rows="3" placeholder="Describe el motivo de tu consulta..." required></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="patientPhone">Teléfono de Contacto</label>
+                                <input type="tel" id="patientPhone" placeholder="Ej: +57 300 123 4567">
+                            </div>
+
+                            <button type="submit" class="btn">Solicitar Cita</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="appointments-section">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50;">🗓️ Mis Citas</h3>
+                    
+                    <div class="filters-section">
+                        <div class="filters-grid">
+                            <div class="form-group">
+                                <label for="patientFilterStatus">Estado:</label>
+                                <select id="patientFilterStatus">
+                                    <option value="">Todos los estados</option>
+                                    <option value="pending">Pendiente</option>
+                                    <option value="confirmed">Confirmada</option>
+                                    <option value="completed">Completada</option>
+                                    <option value="cancelled">Cancelada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="patientFilterDate">Fecha:</label>
+                                <input type="date" id="patientFilterDate">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-secondary" onclick="clearPatientFilters()">Limpiar Filtros</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="patientAppointmentsList">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📅</div>
+                            <p>No tienes citas programadas</p>
+                            <p>Solicita tu primera cita usando el formulario de arriba</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Doctor Page -->
+        <div id="doctor" class="page">
+            <div class="main-content">
+                <h2 style="margin-bottom: 30px; color: #2c3e50;">👨‍⚕️ Panel de Doctor</h2>
+                
+                <div class="dashboard">
+                    <div class="stats-section">
+                        <h3 style="margin-bottom: 20px; color: #2c3e50;">Estadísticas de Consulta</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" id="doctorTotalCitas">0</div>
+                                <div class="stat-label">Total Citas</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="doctorCitasHoy">0</div>
+                                <div class="stat-label">Hoy</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="doctorCitasPendientes">0</div>
+                                <div class="stat-label">Pendientes</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" id="doctorPacientes">0</div>
+                                <div class="stat-label">Pacientes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3 style="margin-bottom: 20px; color: #2c3e50;">🕐 Configurar Disponibilidad</h3>
+                        <form id="doctorAvailabilityForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="doctorStartTime">Hora Inicio</label>
+                                    <input type="time" id="doctorStartTime" value="08:00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="doctorEndTime">Hora Fin</label>
+                                    <input type="time" id="doctorEndTime" value="17:00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="doctorDuration">Duración por Cita</label>
+                                    <select id="doctorDuration">
+                                        <option value="30">30 minutos</option>
+                                        <option value="45">45 minutos</option>
+                                        <option value="60">1 hora</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="doctorMaxPatients">Máximo Pacientes/Día</label>
+                                    <input type="number" id="doctorMaxPatients" value="12" min="1" max="20">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn">Actualizar Disponibilidad</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="appointments-section">
+                    <h3 style="margin-bottom: 20px; color: #2c3e50;">📋 Gestión de Citas</h3>
+                    
+                    <div class="filters-section">
+                        <div class="filters-grid">
+                            <div class="form-group">
+                                <label for="doctorFilterStatus">Estado:</label>
+                                <select id="doctorFilterStatus">
+                                    <option value="">Todos los estados</option>
+                                    <option value="pending">Pendiente</option>
+                                    <option value="confirmed">Confirmada</option>
+                                    <option value="completed">Completada</option>
+                                    <option value="cancelled">Cancelada</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="doctorFilterDate">Fecha:</label>
+                                <input type="date" id="doctorFilterDate">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-secondary" onclick="clearDoctorFilters()">Limpiar Filtros</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="doctorAppointmentsList">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">👥</div>
+                            <p>No hay citas programadas</p>
+                            <p>Las solicitudes de citas aparecerán aquí</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script src="js/funciones.js"></script>
+</body>
+</html>
